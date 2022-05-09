@@ -1,5 +1,7 @@
 package com.example.myapplication5;
 
+import androidx.annotation.Nullable;
+
 import java.util.Arrays;
 
 /**
@@ -76,9 +78,9 @@ public class Face {
         boolean up=true;
         Edge e=edges[(i+1)%4];
         if (
-                e.start().equals(a)
+                e.start().equals(edges[i].start())
                 ||
-                e.start().equals(b)
+                e.start().equals(edges[i].end())
         ){
             up=e.end().projectTo2D()[0].scalar(v)>threshold;
         }else {
@@ -148,5 +150,32 @@ public class Face {
         start_1.move(v.x(), v.y(), v.z());
         end_0.move(v.x(), v.y(), v.z());
         end_1.move(v.x(), v.y(), v.z());
+    }
+
+
+    public double sumDistance(Point2D p) {
+        Point3D start_0=edges[0].start();
+        Point3D end_0=edges[0].end();
+        Point3D start_1=null;
+        Point3D end_1=null;
+        for (int i = 1; i <= 3; i++) {
+            if (!edges[i].start().equals(start_0)&&!edges[i].start().equals(end_0)){
+                if ((!edges[i].end().equals(start_0)&&!edges[i].end().equals(end_0))){
+                    start_1=edges[i].start();
+                    end_1=edges[i].end();
+                }
+            }
+        }
+        Point2D[] p2=new Point2D[]{
+          start_0.projectTo2D()[0],
+          start_1.projectTo2D()[0],
+          end_0.projectTo2D()[0],
+          end_1.projectTo2D()[0]
+        };
+        double result=0;
+        for (int i = 0; i < p2.length; i++) {
+            result+=p2[i].getDistance(p);
+        }
+        return result;
     }
 }

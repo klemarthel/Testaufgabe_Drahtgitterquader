@@ -9,6 +9,9 @@ public class Point2D extends Point{
     public double getDistance(){
         return Math.sqrt(x()*x()+y()*y());
     }
+    public double getDistance(Point2D p){
+        return (new Point2D(this,p)).getDistance();
+    }
     public Point2D(double x,double y){
         coordinates=new double[]{x,y};
     }

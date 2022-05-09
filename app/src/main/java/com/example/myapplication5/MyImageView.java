@@ -53,7 +53,20 @@ public class MyImageView extends AppCompatImageView {
 
             start = new Point2D(me.getX(), me.getY());
             if(ds.getMode()==DrawingSettings.MOVE_SIDE){
-                face = null;
+                Face[] faces=c.getFaces();
+                Point2D t=new Point2D(
+                        (me.getX()-ds.offset.x())/ds.getZoom(),
+                        (me.getY()-ds.offset.y())/ds.getZoom()
+                );
+                face = faces[0];
+                /*double min_distance=face.sumDistance(start);
+                for (int i = 1; i <faces.length; i++) {
+                    double tmp=faces[i].sumDistance(start);
+                    if (tmp<min_distance){
+                        min_distance=tmp;
+                        face=faces[i];
+                    }
+                }*/
                 for (Face f:c.getFaces()
                      ) {
                     if (f.inBounds(new Point2D(
