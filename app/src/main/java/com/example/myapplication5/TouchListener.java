@@ -2,8 +2,11 @@ package com.example.myapplication5;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 
+/**
+ * Urspruenglich fuer Rotationen des Wuerfels verwendet,
+ * dann durch Erweiterung von ImageView via MyImageview ersetzt.
+ */
 public class TouchListener implements GestureDetector.OnGestureListener{
     Cube c;
     DrawingSettings drawingSettings;

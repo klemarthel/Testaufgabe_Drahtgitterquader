@@ -23,6 +23,6 @@ public class Edge implements Projectable {
 
     @Override
     public Point2D[] projectTo2D() {
-        return new Point2D[]{start.projectTo2D()[0],end.projectTo2D()[0]};
+        return new Point2D[]{start.projectTo2D()[0], end.projectTo2D()[0]};
     }
 }

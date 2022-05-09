@@ -2,9 +2,7 @@ package com.example.myapplication5;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import android.view.MotionEvent;
-import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -20,29 +18,30 @@ public class MyImageView extends AppCompatImageView {
     public void setCube(Cube c) {
         this.c = c;
     }
+
     private Point2D start;
-    private double distance=0;
+    private double distance = 0;
     private Point3D direction;
 
-    public boolean onTouchEvent(MotionEvent me){
+    public boolean onTouchEvent(MotionEvent me) {
         super.onTouchEvent(me);
-        if (me.getPointerCount()>1) {
+        if (me.getPointerCount() > 1) {
 
-            if (me.getActionMasked()==me.ACTION_POINTER_DOWN)
+            if (me.getActionMasked() == me.ACTION_POINTER_DOWN)
 
-                distance=new Point2D(
-                        me.getX(0)-me.getX(1),
-                        me.getY(0)-me.getY(1)
+                distance = new Point2D(
+                        me.getX(0) - me.getX(1),
+                        me.getY(0) - me.getY(1)
                 ).getDistance();
-            if (me.getActionMasked()==me.ACTION_MOVE){
+            if (me.getActionMasked() == me.ACTION_MOVE) {
 
-                if(distance!=0){
-                    double new_distance=new Point2D(
-                            me.getX(0)-me.getX(1),
-                            me.getY(0)-me.getY(1)
+                if (distance != 0) {
+                    double new_distance = new Point2D(
+                            me.getX(0) - me.getX(1),
+                            me.getY(0) - me.getY(1)
                     ).getDistance();
-                    ds.setZoom(new_distance/distance);
-                    distance=new_distance;
+                    ds.setZoom(new_distance / distance);
+                    distance = new_distance;
                     invalidate();
                 }
 
@@ -50,14 +49,14 @@ public class MyImageView extends AppCompatImageView {
 
             return true;
         }
-        if (me.getActionMasked()==me.ACTION_DOWN) {
+        if (me.getActionMasked() == me.ACTION_DOWN) {
 
             start = new Point2D(me.getX(), me.getY());
-            if(ds.getMode()==DrawingSettings.MOVE_SIDE){
-                Face[] faces=c.getFaces();
-                Point2D t=new Point2D(
-                        (me.getX()-ds.offset.x())/ds.getZoom(),
-                        (me.getY()-ds.offset.y())/ds.getZoom()
+            if (ds.getMode() == DrawingSettings.MOVE_SIDE) {
+                Face[] faces = c.getFaces();
+                Point2D t = new Point2D(
+                        (me.getX() - ds.offset.x()) / ds.getZoom(),
+                        (me.getY() - ds.offset.y()) / ds.getZoom()
                 );
                 face = faces[0];
                 /*double min_distance=face.sumDistance(start);
@@ -68,39 +67,39 @@ public class MyImageView extends AppCompatImageView {
                         face=faces[i];
                     }
                 }*/
-                for (Face f:c.getFaces()
-                     ) {
+                for (Face f : c.getFaces()
+                ) {
                     if (f.inBounds(new Point2D(
-                            (me.getX()-ds.offset.x())/ds.getZoom(),
-                            (me.getY()-ds.offset.y())/ds.getZoom()
-                    ))){
-                        if (face !=null){
-                            if(f.higher(face))
-                                face =f;
-                        }else{
-                            face =f;
+                            (me.getX() - ds.offset.x()) / ds.getZoom(),
+                            (me.getY() - ds.offset.y()) / ds.getZoom()
+                    ))) {
+                        if (face != null) {
+                            if (f.higher(face))
+                                face = f;
+                        } else {
+                            face = f;
                         }
                     }
                 }
             }
         }
-        if (me.getActionMasked()==me.ACTION_MOVE){
+        if (me.getActionMasked() == me.ACTION_MOVE) {
 
-            if (start!=null){
-                Point2D delta=new Point2D(me.getX()-start.x(),me.getY()-start.y());
-                switch (ds.getMode()){
+            if (start != null) {
+                Point2D delta = new Point2D(me.getX() - start.x(), me.getY() - start.y());
+                switch (ds.getMode()) {
                     case DrawingSettings.ROTATE:
-                        c.rotate(-delta.x()/200,-delta.y()/200);
+                        c.rotate(-delta.x() / 200, -delta.y() / 200);
                         break;
                     case DrawingSettings.MOVE:
-                        c.move(delta.x()/20,delta.y()/20);
+                        c.move(delta.x() / 20, delta.y() / 20);
                         break;
                     case DrawingSettings.MOVE_SIDE:
                         if (face != null) {
-                            if (delta.x()>0)
-                                face.move(delta.getDistance()/10000);
+                            if (delta.x() > 0)
+                                face.move(delta.getDistance() / 10000);
                             else
-                                face.move(-delta.getDistance()/10000);
+                                face.move(-delta.getDistance() / 10000);
                         }
 
                         break;
@@ -108,11 +107,12 @@ public class MyImageView extends AppCompatImageView {
                 }
 
             }
-            start=new Point2D(me.getX(),me.getY());
+            start = new Point2D(me.getX(), me.getY());
         }
         this.invalidate();
         return true;
     }
+
     public MyImageView(Context context) {
         super(context);
     }
@@ -124,7 +124,6 @@ public class MyImageView extends AppCompatImageView {
     public MyImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
 
 
     public void setDrawingSettings(DrawingSettings drawingSettings) {

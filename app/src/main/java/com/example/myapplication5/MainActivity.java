@@ -5,23 +5,18 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.view.MotionEvent;
-import android.view.View;
+import android.os.Bundle;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.core.view.GestureDetectorCompat;
-import androidx.core.view.MotionEventCompat;
 import com.google.android.material.chip.Chip;
 
 /***
  * Repraesentiert die Oberflaeche der App.
  */
-public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
+public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private TouchListener tl;
     private GestureDetectorCompat gdt;
@@ -33,21 +28,21 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if (buttonView.getId()==move.getId()){
-            if(isChecked){
+        if (buttonView.getId() == move.getId()) {
+            if (isChecked) {
                 ds.setMode(DrawingSettings.MOVE);
                 move_side.setChecked(false);
                 rotate.setChecked(false);
             }
 
-        } else if (buttonView.getId()== rotate.getId()) {
-            if(isChecked){
+        } else if (buttonView.getId() == rotate.getId()) {
+            if (isChecked) {
                 ds.setMode(DrawingSettings.ROTATE);
                 move_side.setChecked(false);
                 move.setChecked(false);
             }
-        } else if (buttonView.getId()==move_side.getId()) {
-            if(isChecked){
+        } else if (buttonView.getId() == move_side.getId()) {
+            if (isChecked) {
                 ds.setMode(DrawingSettings.MOVE_SIDE);
                 move.setChecked(false);
                 rotate.setChecked(false);
@@ -56,35 +51,37 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     }
 
 
-    private Cube e=new  Cube();
+    private Cube e = new Cube();
 
     /**
      * Zeichnung des Wuerfels.
      */
-    class CubeDrawing extends Drawable{
+    class CubeDrawing extends Drawable {
 
 
-        private float mapXtoCanvas(double x){
-            return (float) (x*ds.getZoom()+ds.offset.x());
+        private float mapXtoCanvas(double x) {
+            return (float) (x * ds.getZoom() + ds.offset.x());
         }
-        private float mapYtoCanvas(double x){
-            return (float) (x*ds.getZoom()+ds.offset.y());
+
+        private float mapYtoCanvas(double x) {
+            return (float) (x * ds.getZoom() + ds.offset.y());
         }
+
         @Override
         public void draw(@NonNull Canvas canvas) {
-            ds.offset=new Point2D(getBounds().centerX(),getBounds().centerY());
-            Paint p=new Paint();
-            p.setARGB(255,255,255,255);
-            Paint p2=new Paint();
-            p2.setARGB(255,0,0,0);
-            canvas.drawRect(0,0,getBounds().right,getBounds().bottom,p2);
-            Edge[] pts =e.getEdges();
-            for ( Edge pt : pts) {
+            ds.offset = new Point2D(getBounds().centerX(), getBounds().centerY());
+            Paint p = new Paint();
+            p.setARGB(255, 255, 255, 255);
+            Paint p2 = new Paint();
+            p2.setARGB(255, 0, 0, 0);
+            canvas.drawRect(0, 0, getBounds().right, getBounds().bottom, p2);
+            Edge[] pts = e.getEdges();
+            for (Edge pt : pts) {
                 Point2D[] start_stop = pt.projectTo2D();
 
                 Point2D start = start_stop[0];
                 Point2D stop = start_stop[1];
-                canvas.drawLine(mapXtoCanvas(start.x()), mapYtoCanvas( start.y()), mapXtoCanvas( stop.x()), mapYtoCanvas( stop.y()), p);
+                canvas.drawLine(mapXtoCanvas(start.x()), mapYtoCanvas(start.y()), mapXtoCanvas(stop.x()), mapYtoCanvas(stop.y()), p);
             }
 
         }
@@ -104,27 +101,27 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             return PixelFormat.OPAQUE;
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MyImageView miw=findViewById(R.id.myImageView);
+        MyImageView miw = findViewById(R.id.myImageView);
         //miw.set
 
         (move = findViewById(R.id.chipMove)).setOnCheckedChangeListener(this);
         (rotate = findViewById(R.id.chipRotate)).setOnCheckedChangeListener(this);
         (move_side = findViewById(R.id.chipMoveSide)).setOnCheckedChangeListener(this);
-        ds=new DrawingSettings(10,miw);
+        ds = new DrawingSettings(10, miw);
         miw.setDrawingSettings(ds);
         miw.setImageDrawable(new CubeDrawing());
 
 
         miw.setCube(e);
 
-        tl=new TouchListener(e,ds);
-        gdt=new GestureDetectorCompat(this,tl);
+        tl = new TouchListener(e, ds);
+        gdt = new GestureDetectorCompat(this, tl);
         //miw.setOnTouchListener(new MyTouchListener());
-
 
 
     }
