@@ -18,8 +18,6 @@ import com.google.android.material.chip.Chip;
  */
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
-    private TouchListener tl;
-    private GestureDetectorCompat gdt;
     private DrawingSettings ds;
     private Chip move;
     private Chip rotate;//=findViewById(R.id.chipMove);
@@ -115,14 +113,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         ds = new DrawingSettings(10, miw);
         miw.setDrawingSettings(ds);
         miw.setImageDrawable(new CubeDrawing());
-
+        this.setTitle("Testaufgabe Drahtgitterquader");
 
         miw.setCube(e);
-
-        tl = new TouchListener(e, ds);
-        gdt = new GestureDetectorCompat(this, tl);
-        //miw.setOnTouchListener(new MyTouchListener());
-
 
     }
 
