@@ -1,5 +1,8 @@
 package com.example.myapplication5;
 
-public class Point {
+/***
+ * Schnittstelle fuer alle Punkte.
+ */
+public abstract class Point {
     protected double[] coordinates;
 }

@@ -8,15 +8,19 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
+/**
+ * Klasse, die die den Wuerfel zeichnende Komponente repraesentiert.
+ */
 public class MyImageView extends AppCompatImageView {
-    Cube c;
+    private Cube c;
 
-    DrawingSettings ds;
+    private DrawingSettings ds;
     public void setCube(Cube c) {
         this.c = c;
     }
-    Point2D start;
-    double distance=0;
+    private Point2D start;
+    private double distance=0;
+    private Point3D direction;
     public boolean onTouchEvent(MotionEvent me){
         super.onTouchEvent(me);
         if (me.getPointerCount()>1) {
@@ -51,11 +55,16 @@ public class MyImageView extends AppCompatImageView {
 
             if (start!=null){
                 Point2D delta=new Point2D(me.getX()-start.x(),me.getY()-start.y());
-                if (false){
-                    c.move(delta.x()/20,delta.y()/20);
-                } else if (true) {
-                    c.rotate(-delta.x()/200,-delta.y()/200);
-                } else if (true) {
+                switch (ds.getMode()){
+                    case DrawingSettings.ROTATE:
+                        c.rotate(-delta.x()/200,-delta.y()/200);
+                        break;
+                    case DrawingSettings.MOVE:
+                        c.move(delta.x()/20,delta.y()/20);
+                        break;
+                    case DrawingSettings.MOVE_SIDE:
+
+                        break;
 
                 }
 

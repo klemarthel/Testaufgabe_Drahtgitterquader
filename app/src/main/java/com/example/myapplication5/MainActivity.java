@@ -7,6 +7,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -15,12 +16,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.core.view.MotionEventCompat;
+import com.google.android.material.chip.Chip;
 
-public class MainActivity extends AppCompatActivity {
+/***
+ * Repraesentiert die Oberflaeche der App.
+ */
+public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 
     TouchListener tl;
     GestureDetectorCompat gdt;
     DrawingSettings ds;
+    private Chip move;
+    private Chip rotate;//=findViewById(R.id.chipMove);
+    private Chip move_side;
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        tv.setText("test");
+        if (buttonView.getId()==move.getId()){
+            if(isChecked){
+                ds.setMode(DrawingSettings.MOVE);
+                move_side.setChecked(false);
+                rotate.setChecked(false);
+            }
+
+        } else if (buttonView.getId()== rotate.getId()) {
+            if(isChecked){
+                ds.setMode(DrawingSettings.ROTATE);
+                move_side.setChecked(false);
+                move.setChecked(false);
+            }
+        } else if (buttonView.getId()==move_side.getId()) {
+            if(isChecked){
+                ds.setMode(DrawingSettings.MOVE_SIDE);
+                move.setChecked(false);
+                rotate.setChecked(false);
+            }
+        }
+    }
+
     class MyTouchListener implements View.OnTouchListener{
         double r=0;
         double r_2=0;
@@ -115,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
         MyImageView miw=findViewById(R.id.myImageView);
         //miw.set
         tv=findViewById(R.id.MyText);
+        (move = findViewById(R.id.chipMove)).setOnCheckedChangeListener(this);
+        (rotate = findViewById(R.id.chipRotate)).setOnCheckedChangeListener(this);
+        (move_side = findViewById(R.id.chipMoveSide)).setOnCheckedChangeListener(this);
         ds=new DrawingSettings(10,miw);
         miw.setDrawingSettings(ds);
         miw.setImageDrawable(new CubeDrawing());

@@ -3,7 +3,9 @@ package com.example.myapplication5;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-
+/**
+ * Repraesentiert einen 3d-Punkt bzw. Vektor.
+ */
 public class Point3D extends Point implements Projectable{
     public double distance(Point3D p3){
         double dx=this.x()-p3.x();
@@ -16,6 +18,13 @@ public class Point3D extends Point implements Projectable{
         coordinates=new double[]{x,y,z};
         old_coordinates=new double[]{x,y,z};
     }
+
+    /**
+     * Rotiert an der Y-Achse, aendert x,z
+     * Formel aus:
+     * https://en.wikipedia.org/wiki/Three-dimensional_rotation_operator#Rotation_around_an_axis
+     * @param x
+     */
     public void rotateXZ(double x){
         double x_1=-sin(x)*coordinates[2]+cos(x)*coordinates[0];
         double z_1=cos(x)*coordinates[2]+sin(x)*coordinates[0];
@@ -24,6 +33,12 @@ public class Point3D extends Point implements Projectable{
 
         coordinates[2]=z_1/*+z_2*/;
     }
+    /**
+     * Rotiert an der X-Achse, aendert y,z
+     * Formel aus:
+     * https://en.wikipedia.org/wiki/Three-dimensional_rotation_operator#Rotation_around_an_axis
+     * @param x
+     */
     public void rotateYZ(double x){
         double x_1=-sin(x)*coordinates[2]+cos(x)*coordinates[1];
         double z_1=cos(x)*coordinates[2]+sin(x)*coordinates[1];
@@ -41,6 +56,19 @@ public class Point3D extends Point implements Projectable{
     public double x(){return coordinates[0];}
     public double y(){return coordinates[1];}
     public double z(){return coordinates[2];}
+
+    /**
+     * Projeziert den Punkt auf 2d.
+     * Dies scheint die einfachste Variante zusein,
+     * das zu tun, und soll fuer diese App reichen.
+     * So sind wir bereits im Geometrie Unterricht
+     * in der Schule vorgegangen.
+     * Es scheinen noch andere Moeglichkeiten zu existieren,
+     * eine davon wurde in GPU-Programmierung angesprochen
+     * (als urspruengliche Motivation zum Entwurf von GPUs)
+     * https://en.wikipedia.org/wiki/3D_projection#Orthographic_projection
+     * @return 2d-Punkt
+     */
     public Point2D[] projectTo2D(){
 
         return new Point2D[]{

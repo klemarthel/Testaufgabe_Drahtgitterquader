@@ -1,5 +1,8 @@
 package com.example.myapplication5;
 
+/***
+ * Repraesentiert eine Kante.
+ */
 public class Edge implements Projectable {
     private Point3D start;
     private Point3D end;

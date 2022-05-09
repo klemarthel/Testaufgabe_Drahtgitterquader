@@ -2,6 +2,9 @@ package com.example.myapplication5;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Repraesentiert einen 2d-Punkt bzw. Vektor.
+ */
 public class Point2D extends Point{
     public double getDistance(){
         return Math.sqrt(x()*x()+y()*y());
