@@ -10,11 +10,10 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GestureDetectorCompat;
 import com.google.android.material.chip.Chip;
 
 /***
- * Repraesentiert die Oberflaeche der App.
+ * Repraesentiert bzw. zeichnet die Oberflaeche der App.
  */
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
