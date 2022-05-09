@@ -57,9 +57,9 @@ public class Face {
         return Direction;}
 
     /**
-     * Funktioniert nicht,
-     *
-     * @param p
+     * Schaut, ob der gegebene Punkt innerhalb der
+     * Seitenfläche liegt.
+     * @param p Punkt, an dem der View berührt wurde.
      * @return
      */
     public boolean inBounds(Point2D p){
@@ -127,6 +127,11 @@ public class Face {
         }
         return result;
     }
+
+    /**
+     * Verschiebt die Punkte in Richtung Direction.
+     * @param d
+     */
     public void move(double d){
         getDirection();
         Point3D v=new Point3D(

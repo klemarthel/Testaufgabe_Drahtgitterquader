@@ -23,9 +23,9 @@ import com.google.android.material.chip.Chip;
  */
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 
-    TouchListener tl;
-    GestureDetectorCompat gdt;
-    DrawingSettings ds;
+    private TouchListener tl;
+    private GestureDetectorCompat gdt;
+    private DrawingSettings ds;
     private Chip move;
     private Chip rotate;//=findViewById(R.id.chipMove);
     private Chip move_side;
@@ -55,50 +55,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }
     }
 
-    class MyTouchListener implements View.OnTouchListener{
-        double r=0;
-        double r_2=0;
-        Point2D start;
 
+    private Cube e=new  Cube();
 
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            /*if(event.getActionMasked()==event.ACTION_DOWN){
-                start=new Point2D(event.getX(),event.getY());
-                if(tv!=null){
-                    tv.setText("DOWN");
-                }
-
-            } else if (event.getActionMasked()==event.ACTION_UP) {
-                if(tv!=null){
-                    tv.setText("UP");
-                }
-                if (start!=null){
-                    Point2D delta=new Point2D(
-                            start.x()-event.getX(),
-                            start.y()-event.getY()
-                    );
-
-                    e.rotate((delta.x()/v.getWidth())*2*Math.PI,
-                            (delta.y()/v.getHeight())*2*Math.PI);
-                    start=null;
-                }
-            }
-
-            //e.rotate(0.1,0.1);
-            v.invalidate();
-            if(tv!=null){
-                tv.setText(""+ MotionEventCompat.getActionMasked(event));
-            }*/
-
-            gdt.onTouchEvent(event);
-            v.invalidate();
-            return true;
-        }
-
-    }
-    Cube e=new  Cube();
+    /**
+     * Zeichnung des Wuerfels.
+     */
     class CubeDrawing extends Drawable{
 
 
@@ -148,14 +110,14 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         setContentView(R.layout.activity_main);
         MyImageView miw=findViewById(R.id.myImageView);
         //miw.set
-        tv=findViewById(R.id.MyText);
+
         (move = findViewById(R.id.chipMove)).setOnCheckedChangeListener(this);
         (rotate = findViewById(R.id.chipRotate)).setOnCheckedChangeListener(this);
         (move_side = findViewById(R.id.chipMoveSide)).setOnCheckedChangeListener(this);
         ds=new DrawingSettings(10,miw);
         miw.setDrawingSettings(ds);
         miw.setImageDrawable(new CubeDrawing());
-        miw.setTextView(tv);
+
 
         miw.setCube(e);
 
@@ -166,5 +128,5 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
     }
-    TextView tv;
+
 }

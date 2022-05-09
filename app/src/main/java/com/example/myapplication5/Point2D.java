@@ -15,6 +15,12 @@ public class Point2D extends Point{
     public Point2D(double x,double y){
         coordinates=new double[]{x,y};
     }
+
+    /**
+     * Skalar Produkt
+     * @param p
+     * @return
+     */
     public double scalar(Point2D p){
         return this.x()*p.x()+this.y()*p.y();
     }

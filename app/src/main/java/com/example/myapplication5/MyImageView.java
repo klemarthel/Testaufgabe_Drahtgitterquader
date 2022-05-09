@@ -23,6 +23,7 @@ public class MyImageView extends AppCompatImageView {
     private Point2D start;
     private double distance=0;
     private Point3D direction;
+
     public boolean onTouchEvent(MotionEvent me){
         super.onTouchEvent(me);
         if (me.getPointerCount()>1) {
@@ -124,10 +125,7 @@ public class MyImageView extends AppCompatImageView {
         super(context, attrs, defStyleAttr);
     }
 
-    TextView tv;
-    public void setTextView(TextView tv) {
-        this.tv=tv;
-    }
+
 
     public void setDrawingSettings(DrawingSettings drawingSettings) {
         this.ds = drawingSettings;

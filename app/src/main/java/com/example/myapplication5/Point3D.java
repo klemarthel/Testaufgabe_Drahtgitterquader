@@ -57,6 +57,13 @@ public class Point3D extends Point implements Projectable{
         //coordinates[1]=y_2;
         coordinates[2]=z_1/*+z_2*/;
     }
+
+    /**
+     * Verschiebt den Punkt.
+     * @param x
+     * @param y
+     * @param z
+     */
     public void move(double x,double y,double z){
         coordinates[0]+=x;
         coordinates[1]+=y;
@@ -88,7 +95,11 @@ public class Point3D extends Point implements Projectable{
         };
     }
 
-
+    /**
+     * Um zu sehen, welche Punkte von z.B. Face identisch sind.
+     * @param p
+     * @return
+     */
     public boolean equals(Point3D p) {
         for (int i = 0; i < 3; i++) {
             if(this.coordinates[i]!=p.coordinates[i]){
