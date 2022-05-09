@@ -1,1 +1,1 @@
-# Testaufgabe_Drahtgitterquader
+# Testaufgabe Drahtgitterquader
