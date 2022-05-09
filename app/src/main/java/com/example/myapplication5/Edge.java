@@ -7,6 +7,13 @@ public class Edge implements Projectable {
     private Point3D start;
     private Point3D end;
 
+    public Point3D start() {
+        return start;
+    }
+
+    public Point3D end() {
+        return end;
+    }
 
     public Edge(Point3D start, Point3D end) {
         this.start = start;

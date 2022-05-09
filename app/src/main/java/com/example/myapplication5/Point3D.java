@@ -1,6 +1,8 @@
 package com.example.myapplication5;
 
 
+import androidx.annotation.Nullable;
+
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 /**
@@ -15,6 +17,13 @@ public class Point3D extends Point implements Projectable{
     }
     final double[] old_coordinates;
     public Point3D(double x,double y,double z){
+        coordinates=new double[]{x,y,z};
+        old_coordinates=new double[]{x,y,z};
+    }
+    public Point3D(Point3D p1,Point3D p2){
+        double x=p1.x()-p2.x();
+        double y=p1.y()-p2.y();
+        double z=p1.z()-p2.z();
         coordinates=new double[]{x,y,z};
         old_coordinates=new double[]{x,y,z};
     }
@@ -78,4 +87,15 @@ public class Point3D extends Point implements Projectable{
                 )
         };
     }
+
+
+    public boolean equals(Point3D p) {
+        for (int i = 0; i < 3; i++) {
+            if(this.coordinates[i]!=p.coordinates[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        tv.setText("test");
+
         if (buttonView.getId()==move.getId()){
             if(isChecked){
                 ds.setMode(DrawingSettings.MOVE);
@@ -103,14 +103,14 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
         private float mapXtoCanvas(double x){
-            return (float) (x*ds.getZoom()+getBounds().centerX());
+            return (float) (x*ds.getZoom()+ds.offset.x());
         }
         private float mapYtoCanvas(double x){
-            return (float) (x*ds.getZoom()+getBounds().centerY());
+            return (float) (x*ds.getZoom()+ds.offset.y());
         }
         @Override
         public void draw(@NonNull Canvas canvas) {
-
+            ds.offset=new Point2D(getBounds().centerX(),getBounds().centerY());
             Paint p=new Paint();
             p.setARGB(255,255,255,255);
             Paint p2=new Paint();

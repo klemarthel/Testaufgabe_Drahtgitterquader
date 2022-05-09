@@ -15,6 +15,8 @@ public class MyImageView extends AppCompatImageView {
     private Cube c;
 
     private DrawingSettings ds;
+    private Face face;
+
     public void setCube(Cube c) {
         this.c = c;
     }
@@ -47,10 +49,27 @@ public class MyImageView extends AppCompatImageView {
 
             return true;
         }
-        if (me.getActionMasked()==me.ACTION_DOWN)
+        if (me.getActionMasked()==me.ACTION_DOWN) {
 
-            start=new Point2D(me.getX(),me.getY());
-
+            start = new Point2D(me.getX(), me.getY());
+            if(ds.getMode()==DrawingSettings.MOVE_SIDE){
+                face = null;
+                for (Face f:c.getFaces()
+                     ) {
+                    if (f.inBounds(new Point2D(
+                            (me.getX()-ds.offset.x())/ds.getZoom(),
+                            (me.getY()-ds.offset.y())/ds.getZoom()
+                    ))){
+                        if (face !=null){
+                            if(f.higher(face))
+                                face =f;
+                        }else{
+                            face =f;
+                        }
+                    }
+                }
+            }
+        }
         if (me.getActionMasked()==me.ACTION_MOVE){
 
             if (start!=null){
@@ -63,6 +82,12 @@ public class MyImageView extends AppCompatImageView {
                         c.move(delta.x()/20,delta.y()/20);
                         break;
                     case DrawingSettings.MOVE_SIDE:
+                        if (face != null) {
+                            if (delta.x()>0)
+                                face.move(delta.getDistance()/10000);
+                            else
+                                face.move(-delta.getDistance()/10000);
+                        }
 
                         break;
 

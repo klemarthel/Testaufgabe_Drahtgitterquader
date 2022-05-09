@@ -46,8 +46,8 @@ public class DrawingSettings {
     public void setInactive(){
         active=new boolean[]{false,false,false,false,false,false};
     }
-    private byte mode=1;
-
+    private byte mode=0;
+    public Point2D offset=new Point2D(0,0);
     public static final byte ROTATE=1;
     public static final byte MOVE=2;
     public static final byte MOVE_SIDE=3;

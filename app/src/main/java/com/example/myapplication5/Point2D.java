@@ -12,6 +12,15 @@ public class Point2D extends Point{
     public Point2D(double x,double y){
         coordinates=new double[]{x,y};
     }
+    public double scalar(Point2D p){
+        return this.x()*p.x()+this.y()*p.y();
+    }
+    public Point2D(Point2D p1,Point2D p2) {
+        coordinates=new double[]{
+                p1.x()-p2.x(),
+                p1.y()-p2.y()};
+    }
+
     public double x(){
         return coordinates[0];
     }
